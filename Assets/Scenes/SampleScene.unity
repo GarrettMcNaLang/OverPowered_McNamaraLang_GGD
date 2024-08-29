@@ -133,8 +133,8 @@ GameObject:
   - component: {fileID: 372135913}
   - component: {fileID: 372135912}
   - component: {fileID: 372135914}
-  m_Layer: 0
-  m_Name: Square
+  m_Layer: 3
+  m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -631,6 +631,9 @@ MonoBehaviour:
   hSpeed: 5
   jumpforce: 0
   gravity: 0
+  GroundMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!50 &2048865105
 Rigidbody2D:
   serializedVersion: 4

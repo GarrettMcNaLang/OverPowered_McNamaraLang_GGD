@@ -9,19 +9,31 @@ public class PlayerBehavior : MonoBehaviour
     [SerializeField]
     private float hSpeed = 0f;
 
-    //how fast the player will jump
+    //amount of force for a jump
     [SerializeField]
     private float jumpforce = 0f;
-
+    
     [SerializeField]
     private float gravity = 2f;
 
-    LayerMask GroundMask;
+    //the layer of objects that will let the game know if the play can jump
+    public LayerMask GroundMask;
 
+    //a bool that is true when the player is on an object with the ground layer
+    private bool IsOnFloor;
    
+    //the rigidbody for the player character
     private Rigidbody2D rb;
 
+    //the axis that will hold the values for horizontal movement (left and right)
     private float hAxis;
+
+    //distance between player collider to the Floor layer
+    public float DistanceToFloor = 0.1f;
+
+    //axis for jump movement
+    private float jAxis;
+
 
     //function for attacking enemies
 
@@ -44,7 +56,7 @@ public class PlayerBehavior : MonoBehaviour
         //checks every frame for horizontal input (A,D or left arrow, right arrow)
         hAxis = Input.GetAxisRaw("Horizontal") * hSpeed;
 
-
+        jAxis = Input.GetAxisRaw("Jump") * jumpforce;
     }
     //the FixedUpdate function is best for rigidbody
     //based movements
@@ -63,8 +75,14 @@ public class PlayerBehavior : MonoBehaviour
         //consistent framerate
         // var Force = new Vector2(hAxis,0) * Time.deltaTime;
         rb.velocity = new Vector2(hAxis, rb.velocity.y);
+        
         //forces the rigidbody2D to move
         //rb.AddForce(Force);
     }
+
+    //public bool isOnFloor()
+    //{
+        
+    //}
     
 }
