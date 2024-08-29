@@ -359,7 +359,7 @@ GameObject:
   - component: {fileID: 851921320}
   - component: {fileID: 851921323}
   m_Layer: 0
-  m_Name: 9-Sliced (1)
+  m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -610,7 +610,7 @@ GameObject:
   - component: {fileID: 2048865104}
   - component: {fileID: 2048865108}
   m_Layer: 0
-  m_Name: 9-Sliced
+  m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -633,7 +633,8 @@ MonoBehaviour:
   gravity: 0
   GroundMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
+  DistanceToFloor: 0.1
 --- !u!50 &2048865105
 Rigidbody2D:
   serializedVersion: 4
