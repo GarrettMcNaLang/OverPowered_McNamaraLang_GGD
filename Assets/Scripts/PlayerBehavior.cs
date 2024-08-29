@@ -58,12 +58,13 @@ public class PlayerBehavior : MonoBehaviour
         //if the player is in the air, such from jumping or is forced away by an
         //enemy, then applied force will be used to move the player character
         //value for the movement and it's speed
-        
+
         //a vector2 that allows the player to move at a 
         //consistent framerate
-        var Force = new Vector2(hAxis,0) * Time.deltaTime;
+        // var Force = new Vector2(hAxis,0) * Time.deltaTime;
+        rb.velocity = new Vector2(hAxis, rb.velocity.y);
         //forces the rigidbody2D to move
-        rb.AddForce(Force);
+        //rb.AddForce(Force);
     }
     
 }

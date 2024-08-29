@@ -628,7 +628,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f319da11c6e54b44adde0f87d2112df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hSpeed: 3
+  hSpeed: 5
   jumpforce: 0
   gravity: 0
 --- !u!50 &2048865105
@@ -644,7 +644,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 0.0001
-  m_LinearDrag: 40
+  m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
   m_Material: {fileID: 0}
@@ -657,7 +657,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 2
+  m_Constraints: 0
 --- !u!212 &2048865106
 SpriteRenderer:
   m_ObjectHideFlags: 0
