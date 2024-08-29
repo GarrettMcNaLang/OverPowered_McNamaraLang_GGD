@@ -50,6 +50,13 @@ public class PlayerBehavior : MonoBehaviour
     //based movements
     void FixedUpdate()
     {
+        //new info: create a raycast if the player is on the floor.
+
+        //if the raycast (which is like 0.1), detects the floor, then the player will
+        //move through the velocity property
+
+        //if the player is in the air, such from jumping or is forced away by an
+        //enemy, then applied force will be used to move the player character
         //value for the movement and it's speed
         
         //a vector2 that allows the player to move at a 
