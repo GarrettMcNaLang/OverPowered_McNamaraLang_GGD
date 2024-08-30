@@ -634,8 +634,8 @@ MonoBehaviour:
   GroundMask:
     serializedVersion: 2
     m_Bits: 8
-  DistanceToFloor: 0.44
-  BoxSize: {x: 1, y: 0.25}
+  DistanceToFloor: 0.5
+  BoxSize: {x: 0.63, y: 0.25}
 --- !u!50 &2048865105
 Rigidbody2D:
   serializedVersion: 4
