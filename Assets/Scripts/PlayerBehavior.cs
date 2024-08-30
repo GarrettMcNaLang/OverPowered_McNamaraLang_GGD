@@ -19,8 +19,7 @@ public class PlayerBehavior : MonoBehaviour
     //the layer of objects that will let the game know if the play can jump
     public LayerMask GroundMask;
 
-    //a bool that is true when the player is on an object with the ground layer
-    private bool IsOnFloor;
+    
    
     //the rigidbody for the player character
     private Rigidbody2D rb;
@@ -31,10 +30,16 @@ public class PlayerBehavior : MonoBehaviour
     //distance between player collider to the Floor layer
     public float DistanceToFloor = 0.1f;
 
+    //this will represent the size of the vector2 of the player 
+    //character's position
+    public Vector2 BoxSize;
+
     //axis for jump movement
     private float jAxis;
 
-
+    //bool for checking if player is jumping
+    private bool isJumping;
+    
     //function for attacking enemies
 
     // Start is called before the first frame update
@@ -54,9 +59,10 @@ public class PlayerBehavior : MonoBehaviour
     void Update()
     {
         //checks every frame for horizontal input (A,D or left arrow, right arrow)
-        hAxis = Input.GetAxisRaw("Horizontal") * hSpeed;
-
-        jAxis = Input.GetAxisRaw("Jump") * jumpforce;
+        hAxis = Input.GetAxisRaw("Horizontal");
+        //
+        isJumping |= Input.GetButtonDown("Jump");
+        
     }
     //the FixedUpdate function is best for rigidbody
     //based movements
@@ -73,16 +79,57 @@ public class PlayerBehavior : MonoBehaviour
 
         //a vector2 that allows the player to move at a 
         //consistent framerate
-        // var Force = new Vector2(hAxis,0) * Time.deltaTime;
-        rb.velocity = new Vector2(hAxis, rb.velocity.y);
-        
-        //forces the rigidbody2D to move
-        //rb.AddForce(Force);
+        rb.velocity = new Vector2(hAxis * hSpeed, rb.velocity.y);
+
+
+        //if the isonFloor method returns true and the
+        //player has pressed the space bar (isJumping, vertical force to
+        //the character to simulate a jump
+
+        Debug.Log("Is the player touching the floor" + isOnFloor());
+        Debug.Log("Did the player press the space key" + isJumping);
+
+        if (isJumping && isOnFloor())
+        {
+            rb.AddForce(new Vector2(rb.velocity.x, jumpforce * Time.deltaTime));
+            
+            
+        }
+        isJumping = false;
+
     }
 
-    //public bool isOnFloor()
-    //{
-        
-    //}
-    
+    //the following method is what will check if the player is touching the floor,
+    //which is any gameObjects that possess the Floor layer. This will
+    //help ensure the player is only able to jump once, and will allow the player
+    //to transition between moving on the ground (which is constant due to movement
+    //being controlled by the velocity property), and moving through addforce,
+    //in order to create variable movement when interacting with enemies
+    public bool isOnFloor()
+    {
+        //parameters in order:
+        //transform component of attached object
+        //size of the transform
+        //the angle of the box
+        //the direction of the vector that is the transform component
+        //the maximum distance the box should be casted
+        //the colliders on this layermask needs to be checked for
+        if(Physics2D.BoxCast(transform.position, BoxSize, 0, 
+            -transform.up, DistanceToFloor, GroundMask))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    //this method will allow the programmer to physically manipulate
+    //the vector2 that represents the box that will detect collisions ith
+    //the layermask
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireCube(transform.position - transform.up * DistanceToFloor, BoxSize);
+    }
+
 }
