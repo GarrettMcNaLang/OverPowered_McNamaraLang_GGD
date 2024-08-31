@@ -79,6 +79,9 @@ public class PlayerBehavior : MonoBehaviour
 
         //a vector2 that allows the player to move at a 
         //consistent framerate
+
+        //figure out how to disable this form of movement when the player is in the air from jumping
+        
         rb.velocity = new Vector2(hAxis * hSpeed, rb.velocity.y);
 
 
@@ -91,7 +94,7 @@ public class PlayerBehavior : MonoBehaviour
 
         if (isJumping && isOnFloor())
         {
-            rb.AddForce(new Vector2(rb.velocity.x, jumpforce * Time.deltaTime));
+            rb.AddForce(new Vector2(rb.velocity.x * rb.velocity.y, jumpforce * Time.deltaTime), ForceMode2D.Force);
             
             
         }
