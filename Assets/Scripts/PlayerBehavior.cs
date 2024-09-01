@@ -19,7 +19,8 @@ public class PlayerBehavior : MonoBehaviour
     //the layer of objects that will let the game know if the play can jump
     public LayerMask GroundMask;
 
-    
+    //collider for the player to detect events with enemies
+    Collider2D PlayerCollider;
    
     //the rigidbody for the player character
     private Rigidbody2D rb;
@@ -81,8 +82,13 @@ public class PlayerBehavior : MonoBehaviour
         //consistent framerate
 
         //figure out how to disable this form of movement when the player is in the air from jumping
+
+        if(isOnFloor())
+        {
+            rb.velocity = new Vector2(hAxis * hSpeed, rb.velocity.y);
+        }
         
-        rb.velocity = new Vector2(hAxis * hSpeed, rb.velocity.y);
+        
 
 
         //if the isonFloor method returns true and the
@@ -94,7 +100,7 @@ public class PlayerBehavior : MonoBehaviour
 
         if (isJumping && isOnFloor())
         {
-            rb.AddForce(new Vector2(rb.velocity.x * rb.velocity.y, jumpforce * Time.deltaTime), ForceMode2D.Force);
+            rb.AddForce(Vector2.up * jumpforce * Time.deltaTime, ForceMode2D.Force);
             
             
         }
