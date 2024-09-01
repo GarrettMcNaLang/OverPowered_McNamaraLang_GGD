@@ -17,6 +17,10 @@ public class EnemyBehavior : MonoBehaviour
 
     private bool changeDir;
 
+    public float turnTime;
+
+    Transform transform;
+
     Rigidbody2D rb;
     
 
@@ -27,39 +31,28 @@ public class EnemyBehavior : MonoBehaviour
 
         rb = GetComponent<Rigidbody2D>();
 
+        transform = GetComponent<Transform>();   
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (changeDir == false)
-        {
-            StartCoroutine(EnemyTurn());
-        }
+        
+      
         
     }
 
     void FixedUpdate()
     {
-        if (changeDir)
-        {
-            
-        }
+        
 
         rb.velocity = new Vector2(speed * Time.deltaTime * direction, rb.velocity.y);
-
-        
-        
         
 
 
     }
 
+   
     
-    IEnumerator EnemyTurn()
-    {
-        yield return new WaitForSeconds(5);
-        changeDir = true;
-        
-    }
 }
