@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions.Must;
+using UnityEngine.UIElements;
 
 public class EnemyBehavior : MonoBehaviour
 {
@@ -13,16 +15,15 @@ public class EnemyBehavior : MonoBehaviour
 
     public float forceApply;
 
-    private float direction = -1;
-
-    private bool changeDir;
-
-    public float turnTime;
-
-    Transform transform;
-
     Rigidbody2D rb;
-    
+
+    //public slots in the inspector to put two points that will be the boundaries for the enemy patrol
+    public GameObject LBound;
+    public GameObject RBound;
+    //which position is the enemy at between the two points
+    private Transform CurrentPoint;
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -31,28 +32,47 @@ public class EnemyBehavior : MonoBehaviour
 
         rb = GetComponent<Rigidbody2D>();
 
-        transform = GetComponent<Transform>();   
+        CurrentPoint = RBound.transform;
 
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-      
         
     }
 
     void FixedUpdate()
     {
         
+        Vector2 point = CurrentPoint.position - transform.position;
 
-        rb.velocity = new Vector2(speed * Time.deltaTime * direction, rb.velocity.y);
-        
+       if(CurrentPoint == RBound.transform)
+        {
+            rb.velocity = new Vector2(speed, 0);
+        }
+       else
+        {
+            rb.velocity = new Vector2(-speed, 0);
+        }
 
+        if(Vector2.Distance(transform.position, CurrentPoint.position) < 0.5f && CurrentPoint == RBound.transform ) {
 
+            CurrentPoint = LBound.transform;
+            
+            
+
+        }
+
+        if (Vector2.Distance(transform.position, CurrentPoint.position) < 0.5f && CurrentPoint == LBound.transform)
+        {
+            CurrentPoint = RBound.transform;
+              
+            
+        }
     }
 
-   
-    
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(LBound.transform.position, 0.5f);
+        Gizmos.DrawWireSphere(RBound.transform.position, 0.5f);
+        Gizmos.DrawLine(LBound.transform.position, RBound.transform.position);  
+    }
+
+
 }
