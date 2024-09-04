@@ -35,9 +35,6 @@ public class PlayerBehavior : MonoBehaviour
     //character's position
     public Vector2 BoxSize;
 
-    //axis for jump movement
-    private float jAxis;
-
     //bool for checking if player is jumping
     private bool isJumping;
     
@@ -51,7 +48,9 @@ public class PlayerBehavior : MonoBehaviour
         //Reference to 2D rigidbody
         rb = GetComponent<Rigidbody2D>();
 
-        
+        //Reference to 2D collider
+
+        PlayerCollider = GetComponent<Collider2D>();
 
 
         
@@ -61,7 +60,8 @@ public class PlayerBehavior : MonoBehaviour
     {
         //checks every frame for horizontal input (A,D or left arrow, right arrow)
         hAxis = Input.GetAxisRaw("Horizontal");
-        //
+        //takes the axis for jumping, holding a bool for if the player is
+        //pressing the space bar.
         isJumping |= Input.GetButtonDown("Jump");
         
     }
@@ -81,11 +81,16 @@ public class PlayerBehavior : MonoBehaviour
         //a vector2 that allows the player to move at a 
         //consistent framerate
 
-        //figure out how to disable this form of movement when the player is in the air from jumping
+        //This is what I am using for now to separate ground movement
+        //and in the air movement
+
+        //however
 
         if(isOnFloor())
         {
             rb.velocity = new Vector2(hAxis * hSpeed, rb.velocity.y);
+
+            
         }
         
         
@@ -102,6 +107,8 @@ public class PlayerBehavior : MonoBehaviour
         {
             rb.AddForce(Vector2.up * jumpforce * Time.deltaTime, ForceMode2D.Force);
             
+            //Insert here A & D keys being used to addforce and horizontal movement
+            //in air
             
         }
         isJumping = false;
@@ -140,5 +147,9 @@ public class PlayerBehavior : MonoBehaviour
     {
         Gizmos.DrawWireCube(transform.position - transform.up * DistanceToFloor, BoxSize);
     }
-
+    //This Event is where 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        
+    }
 }
