@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
+  - WeakSpot
+  - EnemyKiller
   layers:
   - Default
   - TransparentFX

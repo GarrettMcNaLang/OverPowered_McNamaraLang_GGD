@@ -6,6 +6,7 @@ using UnityEngine.UIElements;
 
 public class EnemyBehavior : MonoBehaviour
 {
+   
     //idea for moving back an forth
     //a coroutine that can be set to a specific amount of time before the player turns the other direction
 
@@ -74,5 +75,6 @@ public class EnemyBehavior : MonoBehaviour
         Gizmos.DrawLine(LBound.transform.position, RBound.transform.position);  
     }
 
+   
 
 }

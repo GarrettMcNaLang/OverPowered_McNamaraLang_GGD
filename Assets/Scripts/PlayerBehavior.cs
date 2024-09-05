@@ -159,5 +159,8 @@ public class PlayerBehavior : MonoBehaviour
             //subtracts 1 from the health value
             _gameManager.PlayerHP -= 1;
         }
+
+        
+        
     }
 }

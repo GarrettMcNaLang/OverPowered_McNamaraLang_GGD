@@ -19,6 +19,24 @@ public class GameManager: MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    private float _EnemyLives = 1;
+
+    public float EnemyLives
+    {
+        get { return _EnemyLives; }
+
+        set
+        {
+            _EnemyLives = value;
+
+            if (_EnemyLives <= 0)
+            {
+                Debug.LogFormat("Enemy has died. Lives: {0}", _EnemyLives);
+            }
+        }
+
+    }
+
     //the following lines are the values that will be
     private int _PlayerHP = 2;
     public int PlayerHP
