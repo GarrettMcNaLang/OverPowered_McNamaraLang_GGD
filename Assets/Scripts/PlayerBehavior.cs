@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerBehavior : MonoBehaviour
 {
+    private GameManager _gameManager;
 
     //floats for holding movement speed values
     [SerializeField]
@@ -52,7 +53,7 @@ public class PlayerBehavior : MonoBehaviour
 
         PlayerCollider = GetComponent<Collider2D>();
 
-
+        _gameManager = GameObject.Find("GM").GetComponent<GameManager>();
         
     }
 
@@ -100,8 +101,8 @@ public class PlayerBehavior : MonoBehaviour
         //player has pressed the space bar (isJumping, vertical force to
         //the character to simulate a jump
 
-        Debug.Log("Is the player touching the floor" + isOnFloor());
-        Debug.Log("Did the player press the space key" + isJumping);
+        //Debug.Log("Is the player touching the floor" + isOnFloor());
+        //Debug.Log("Did the player press the space key" + isJumping);
 
         if (isJumping && isOnFloor())
         {
@@ -147,9 +148,16 @@ public class PlayerBehavior : MonoBehaviour
     {
         Gizmos.DrawWireCube(transform.position - transform.up * DistanceToFloor, BoxSize);
     }
-    //This Event is where 
+    //This Event will decrease the PlayerHP value by one every time
+    //the player's collider interacts with a collider belonging to the
+    //Enemy tag
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        
+        //if the colliding gameobject possesses the enemy tag
+        if(collision.gameObject.tag == "Enemy")
+        {
+            //subtracts 1 from the health value
+            _gameManager.PlayerHP -= 1;
+        }
     }
 }
