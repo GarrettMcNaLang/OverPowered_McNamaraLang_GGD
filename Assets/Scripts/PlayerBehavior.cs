@@ -99,8 +99,12 @@ public class PlayerBehavior : MonoBehaviour
         {
             attackfield.SetActive(true);
 
-            isAttacking = false;
+            
         }
+        else
+        attackfield.SetActive(false);
+        
+        isAttacking = false;
        
         //new info: create a raycast if the player is on the floor.
 
