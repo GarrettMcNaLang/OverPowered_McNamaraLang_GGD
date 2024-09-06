@@ -9,7 +9,7 @@ public class JumpOnEnemy : MonoBehaviour
 
     public event JumpEvent jumpEvent;
 
-    
+    public float jumpforce;
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.tag == "WeakSpot")
@@ -19,7 +19,7 @@ public class JumpOnEnemy : MonoBehaviour
 
             Debug.Log("Enemy has been stepped on, " +
                 "initiating event...");
-            jumpEvent(10);
+            jumpEvent(jumpforce);
         }
 
         
