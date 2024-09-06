@@ -19,6 +19,8 @@ public class GameManager: MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    
+
     private float _EnemyLives = 1;
 
     public float EnemyLives
@@ -57,6 +59,10 @@ public class GameManager: MonoBehaviour
         }
     }
 
+    private void Unsubscribe()
+    {
+
+    }
 
 
     // Start is called before the first frame update

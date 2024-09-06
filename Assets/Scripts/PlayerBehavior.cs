@@ -1,10 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerBehavior : MonoBehaviour
 {
     private GameManager _gameManager;
+
+    JumpOnEnemy _jumpOnEnemy;
+    AttackKiller _attackKiller;
 
     //floats for holding movement speed values
     [SerializeField]
@@ -38,6 +42,11 @@ public class PlayerBehavior : MonoBehaviour
 
     //bool for checking if player is jumping
     private bool isJumping;
+
+    private bool isAttacking;
+
+    public GameObject attackfield;
+
     
     //function for attacking enemies
 
@@ -54,6 +63,18 @@ public class PlayerBehavior : MonoBehaviour
         PlayerCollider = GetComponent<Collider2D>();
 
         _gameManager = GameObject.Find("GM").GetComponent<GameManager>();
+
+        _jumpOnEnemy = GameObject.Find("JumpKiller").GetComponent<JumpOnEnemy>();
+
+        _attackKiller = attackfield.GetComponent<AttackKiller>();
+
+        _jumpOnEnemy.jumpEvent += GoombaPropel;
+
+        
+
+        _attackKiller.attackEvent += HammerDown;
+
+        attackfield.SetActive(false);
         
     }
 
@@ -64,12 +85,23 @@ public class PlayerBehavior : MonoBehaviour
         //takes the axis for jumping, holding a bool for if the player is
         //pressing the space bar.
         isJumping |= Input.GetButtonDown("Jump");
+
+        //checks if player is pressing the left mouse button
+
+        isAttacking |= Input.GetMouseButtonDown(0);
         
     }
     //the FixedUpdate function is best for rigidbody
     //based movements
     void FixedUpdate()
     {
+        if(isAttacking)
+        {
+            attackfield.SetActive(true);
+
+            isAttacking = false;
+        }
+       
         //new info: create a raycast if the player is on the floor.
 
         //if the raycast (which is like 0.1), detects the floor, then the player will
@@ -148,6 +180,25 @@ public class PlayerBehavior : MonoBehaviour
     {
         Gizmos.DrawWireCube(transform.position - transform.up * DistanceToFloor, BoxSize);
     }
-    
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Enemy")
+        {
+            _gameManager.PlayerHP -= 1;
+        }
+    }
+
+    private void GoombaPropel(float knockback)
+    {
+        rb.AddForce(Vector2.up * knockback * Time.deltaTime, ForceMode2D.Force);
+        Debug.Log("Player should have been forced up");
+    }
+
+    private void HammerDown(float knockback, Vector2 direction)
+    {
+        var force = knockback * direction;
+        rb.AddForce(force, ForceMode2D.Impulse);
+    }
     
 }
