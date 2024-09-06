@@ -148,19 +148,6 @@ public class PlayerBehavior : MonoBehaviour
     {
         Gizmos.DrawWireCube(transform.position - transform.up * DistanceToFloor, BoxSize);
     }
-    //This Event will decrease the PlayerHP value by one every time
-    //the player's collider interacts with a collider belonging to the
-    //Enemy tag
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        //if the colliding gameobject possesses the enemy tag
-        if(collision.gameObject.tag == "Enemy")
-        {
-            //subtracts 1 from the health value
-            _gameManager.PlayerHP -= 1;
-        }
-
-        
-        
-    }
+    
+    
 }
