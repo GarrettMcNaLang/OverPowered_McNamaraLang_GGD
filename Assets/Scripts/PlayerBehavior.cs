@@ -195,13 +195,17 @@ public class PlayerBehavior : MonoBehaviour
 
     private void GoombaPropel(float knockback)
     {
-        rb.AddForce(Vector2.up * knockback * Time.deltaTime, ForceMode2D.Force);
+        var force = knockback * Time.deltaTime;
+        rb.AddForce(Vector2.up * force, ForceMode2D.Force);
         Debug.Log("Player should have been forced up");
     }
 
     private void HammerDown(float knockback, Vector2 direction)
     {
-        var force = knockback * direction;
+        Debug.LogFormat("direction = {0}", direction);
+
+        var force = direction * knockback * Time.deltaTime;
+        Debug.LogFormat("Force vector, {0}", force);
         rb.AddForce(force, ForceMode2D.Impulse);
     }
     

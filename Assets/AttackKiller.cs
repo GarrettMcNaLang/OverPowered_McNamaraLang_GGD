@@ -8,21 +8,22 @@ public class AttackKiller : MonoBehaviour
 
     public event AttackEvent attackEvent;
 
+    public float AttackForce;
    
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D coll)
     {
         var PlayerCollider = GetComponentInParent<Transform>();
 
-        Vector2 dirVector = (PlayerCollider.position - collision.transform.position).normalized;
+        Vector2 dirVector = (PlayerCollider.position - coll.transform.position).normalized;
 
-        
 
-        if (collision.gameObject.tag == "Enemy")
+        Debug.LogFormat("directional Vector {0}", dirVector);
+        if (coll.tag == "Enemy")
         {
             Debug.Log("Player has made contact with enemy" +
                 "Initiating attack event");
 
-            attackEvent(5, dirVector);
+            attackEvent(AttackForce, dirVector);
             //if (dirVector < 0)
             //    attackEvent(5, -1);
             //else if (dirVector > 0)
