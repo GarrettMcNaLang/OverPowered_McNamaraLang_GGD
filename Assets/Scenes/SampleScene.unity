@@ -212,7 +212,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5effdbb6185139f42b400c5b6328dab3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpforce: 10
+  jumpforce: 3
 --- !u!1 &614332098
 GameObject:
   m_ObjectHideFlags: 0
@@ -311,7 +311,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3de9c494dd010dc4d9ce8fed19a13871, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AttackForce: 3
+  AttackForce: 1
+  knockBackHeight: 2
 --- !u!61 &614332104
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -696,16 +697,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f319da11c6e54b44adde0f87d2112df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hSpeed: 8
-  jumpforce: 1
+  AttackTimer: 0.25
+  hSpeed: 7
+  jumpforce: 6
   gravity: 1
-  maxJumpHeight: 0
   GroundMask:
     serializedVersion: 2
     m_Bits: 8
   DistanceToFloor: 0.52
   BoxSize: {x: 0.62, y: 0.06}
   attackfield: {fileID: 614332098}
+  attacking: 0
 --- !u!50 &2048865105
 Rigidbody2D:
   serializedVersion: 4
@@ -729,7 +731,7 @@ Rigidbody2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_Interpolate: 1
+  m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
@@ -794,7 +796,7 @@ Transform:
   m_GameObject: {fileID: 2048865103}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.51, y: 7.7, z: -3.5825372}
+  m_LocalPosition: {x: 8.44, y: 0.13, z: -3.5825372}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
