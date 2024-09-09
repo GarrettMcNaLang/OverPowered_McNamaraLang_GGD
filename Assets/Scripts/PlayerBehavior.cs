@@ -30,6 +30,7 @@ public class PlayerBehavior : MonoBehaviour
     //the axis that will hold the values for horizontal movement (left and right)
     private float hAxis;
 
+    private float vAxis;
     
 
     #endregion
@@ -114,6 +115,8 @@ public class PlayerBehavior : MonoBehaviour
         #region CheckingForInputs
         //checks every frame for horizontal input (A,D or left arrow, right arrow)
         hAxis = Input.GetAxisRaw("Horizontal");
+
+        vAxis = Input.GetAxisRaw("Vertical");
         //takes the axis for jumping, holding a bool for if the player is
         //pressing the space bar.
         isJumping |= Input.GetButtonDown("Jump");
@@ -122,6 +125,7 @@ public class PlayerBehavior : MonoBehaviour
 
         isAttacking = Input.GetMouseButtonDown(0);
         #endregion
+
 
         
     }
@@ -186,10 +190,12 @@ public class PlayerBehavior : MonoBehaviour
 
         if (isJumping && isOnFloor())
         {
-            rb.velocity = new Vector2(rb.velocity.x, jumpforce);
+            AirControls();
             
             //Insert here A & D keys being used to addforce and horizontal movement
             //in air
+
+            
             
         }
         isJumping = false;
@@ -244,15 +250,18 @@ public class PlayerBehavior : MonoBehaviour
         Debug.Log("Player should have been forced up");
     }
 
-    private void HammerDown(float knockback, Vector2 direction)
+    private void HammerDown(Vector2 direction)
     {
         Debug.LogFormat("direction = {0}", direction);
 
-        var force = direction * knockback * Time.deltaTime;
-        Debug.LogFormat("Force vector, {0}", force);
-        rb.AddForce(force, ForceMode2D.Impulse);
+        rb.AddForce(direction, ForceMode2D.Impulse);
     }
 
-   
+   private void AirControls()
+    {
+        rb.velocity = new Vector2(rb.velocity.x, jumpforce);
+
+        
+    }
     
 }
