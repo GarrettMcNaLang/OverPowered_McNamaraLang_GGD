@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class PlayerBehavior : MonoBehaviour
 {
+    private float timer;
+
+    public float AttackTimer;
     #region scriptReferences
     private GameManager _gameManager;
 
@@ -27,8 +30,8 @@ public class PlayerBehavior : MonoBehaviour
     //the axis that will hold the values for horizontal movement (left and right)
     private float hAxis;
 
-    [SerializeField]
-    private float maxJumpHeight;
+    
+
     #endregion
 
 
@@ -63,6 +66,8 @@ public class PlayerBehavior : MonoBehaviour
     private bool isAttacking;
 
     public GameObject attackfield;
+
+    public bool attacking;
     #endregion
 
     // Start is called before the first frame update
@@ -115,23 +120,36 @@ public class PlayerBehavior : MonoBehaviour
 
         //checks if player is pressing the left mouse button
 
-        isAttacking |= Input.GetMouseButtonDown(0);
+        isAttacking = Input.GetMouseButtonDown(0);
         #endregion
 
+        
     }
     //the FixedUpdate function is best for rigidbody
     //based movements
     void FixedUpdate()
     {
-        if(isAttacking)
+        if (isAttacking)
         {
-            
-            
 
-            
+            attacking = true;
+            attackfield.SetActive(true);
+
         }
         isAttacking = false;
-       
+
+        if (attacking)
+        {
+            timer += Time.deltaTime;
+
+            if (timer >= AttackTimer)
+            {
+                timer = 0;
+                attacking = false;
+                attackfield.SetActive(false);
+            }
+        }
+
         //new info: create a raycast if the player is on the floor.
 
         //if the raycast (which is like 0.1), detects the floor, then the player will
@@ -149,7 +167,7 @@ public class PlayerBehavior : MonoBehaviour
 
         //however
 
-        if(isOnFloor())
+        if (isOnFloor())
         {
             rb.velocity = new Vector2(hAxis * hSpeed, rb.velocity.y);
 
@@ -168,7 +186,7 @@ public class PlayerBehavior : MonoBehaviour
 
         if (isJumping && isOnFloor())
         {
-            rb.AddForce(Vector2.up * jumpforce, ForceMode2D.Impulse);
+            rb.velocity = new Vector2(rb.velocity.x, jumpforce);
             
             //Insert here A & D keys being used to addforce and horizontal movement
             //in air
@@ -221,8 +239,8 @@ public class PlayerBehavior : MonoBehaviour
 
     private void GoombaPropel(float knockback)
     {
-        var force = knockback * Time.deltaTime;
-        rb.AddForce(Vector2.up * force, ForceMode2D.Force);
+        var force = knockback;
+        rb.AddForce(Vector2.up * force, ForceMode2D.Impulse);
         Debug.Log("Player should have been forced up");
     }
 
@@ -235,18 +253,6 @@ public class PlayerBehavior : MonoBehaviour
         rb.AddForce(force, ForceMode2D.Impulse);
     }
 
-    private void AttackMode()
-    {
-        var cooldown = 3f;
-
-        while (cooldown > 0)
-        {
-            attackfield.SetActive(true);
-
-            cooldown -= 1;
-        }
-        attackfield.SetActive(false);
-        
-    }
+   
     
 }

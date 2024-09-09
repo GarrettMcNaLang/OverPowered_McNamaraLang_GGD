@@ -9,6 +9,8 @@ public class AttackKiller : MonoBehaviour
     public event AttackEvent attackEvent;
 
     public float AttackForce;
+
+    public float knockBackHeight;
    
     private void OnTriggerEnter2D(Collider2D coll)
     {
@@ -16,7 +18,8 @@ public class AttackKiller : MonoBehaviour
 
         Vector2 dirVector = (PlayerCollider.position - coll.transform.position).normalized;
 
-
+        dirVector += Vector2.up * knockBackHeight;
+        
         Debug.LogFormat("directional Vector {0}", dirVector);
         if (coll.tag == "Enemy")
         {
