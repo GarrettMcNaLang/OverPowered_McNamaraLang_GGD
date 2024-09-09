@@ -212,7 +212,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5effdbb6185139f42b400c5b6328dab3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpforce: 3
+  GoombaForce: 1.5
 --- !u!1 &614332098
 GameObject:
   m_ObjectHideFlags: 0
@@ -311,8 +311,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3de9c494dd010dc4d9ce8fed19a13871, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AttackForce: 20
-  knockBackHeight: 20
+  AttackForce: 3
+  knockBackHeight: 3
   dirVector: {x: 0, y: 0}
 --- !u!61 &614332104
 BoxCollider2D:
@@ -609,7 +609,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.05873525, y: -0.48046026}
+  m_Offset: {x: -0.05873525, y: -0.2699725}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -620,7 +620,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.5622332, y: 0.08619684}
+  m_Size: {x: 1.5622332, y: 0.11010015}
   m_EdgeRadius: 0
 --- !u!1 &1684410612
 GameObject:
@@ -699,6 +699,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AttackTimer: 0.25
+  GoombaTimer: 0.25
   hSpeed: 7
   jumpforce: 6
   gravity: 1
@@ -709,6 +710,7 @@ MonoBehaviour:
   BoxSize: {x: 0.62, y: 0.06}
   attackfield: {fileID: 614332098}
   attacking: 0
+  isGoomba: 0
 --- !u!50 &2048865105
 Rigidbody2D:
   serializedVersion: 4
@@ -933,7 +935,7 @@ Transform:
   m_GameObject: {fileID: 5718443872253066813}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.55, y: 0, z: -3.5825372}
+  m_LocalPosition: {x: 3.55, y: 0.2176, z: -3.5825372}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -986,7 +988,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 2
-  m_Size: {x: 1.8942872, y: 1}
+  m_Size: {x: 1.8942872, y: 1.435298}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -1091,18 +1093,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0069556236, y: 0}
+  m_Offset: {x: 0.0069556236, y: -0.016742289}
   m_SpriteTilingProperty:
     border: {x: 0.25, y: 0.25, z: 0.25, w: 0.25}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 1, y: 1}
-    newSize: {x: 1.8942872, y: 1}
+    newSize: {x: 1.8942872, y: 1.435298}
     adaptiveTilingThreshold: 0.5
     drawMode: 2
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.959765, y: 1}
+  m_Size: {x: 1.959765, y: 1.4352981}
   m_EdgeRadius: 0
 --- !u!1001 &8104640281744400543
 PrefabInstance:

@@ -1,13 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerBehavior : MonoBehaviour
 {
+    #region Rules
+
+
     private float timer;
 
     public float AttackTimer;
+
+    public float GoombaTimer;
+
+    #endregion
+
     #region scriptReferences
     private GameManager _gameManager;
 
@@ -31,6 +40,8 @@ public class PlayerBehavior : MonoBehaviour
     private float hAxis;
 
     private float vAxis;
+
+    
     
 
     #endregion
@@ -69,6 +80,15 @@ public class PlayerBehavior : MonoBehaviour
     public GameObject attackfield;
 
     public bool attacking;
+
+    private Vector2 AttackForce;
+    #endregion
+
+    #region GoombaJumping
+
+    public bool isGoomba;
+
+    private Vector2 GoombaForce;
     #endregion
 
     // Start is called before the first frame update
@@ -126,18 +146,12 @@ public class PlayerBehavior : MonoBehaviour
         isAttacking = Input.GetMouseButtonDown(0);
         #endregion
 
-
-        
-    }
-    //the FixedUpdate function is best for rigidbody
-    //based movements
-    void FixedUpdate()
-    {
         if (isAttacking)
         {
 
             attacking = true;
             attackfield.SetActive(true);
+            
 
         }
         isAttacking = false;
@@ -153,6 +167,24 @@ public class PlayerBehavior : MonoBehaviour
                 attackfield.SetActive(false);
             }
         }
+
+        if (isGoomba)
+        {
+            timer += Time.deltaTime;
+
+            if(timer >= GoombaTimer)
+            {
+                timer = 0;
+                isGoomba = false;
+            }
+        }
+
+    }
+    //the FixedUpdate function is best for rigidbody
+    //based movements
+    void FixedUpdate()
+    {
+       
 
         //new info: create a raycast if the player is on the floor.
 
@@ -190,15 +222,33 @@ public class PlayerBehavior : MonoBehaviour
 
         if (isJumping && isOnFloor())
         {
-            AirControls();
-            
+            rb.velocity = new Vector2(rb.velocity.x, jumpforce);
+
             //Insert here A & D keys being used to addforce and horizontal movement
             //in air
 
-            
-            
+
+
         }
         isJumping = false;
+
+        if (attacking)
+        {
+            rb.AddForce(AttackForce, ForceMode2D.Impulse);
+            //AttackForce = Vector2.zero;
+        }
+
+        if (!attacking)
+        {
+            AttackForce = Vector2.zero;
+        }
+
+        if (isGoomba)
+        {
+            rb.AddForce(GoombaForce, ForceMode2D.Impulse);
+        }
+        
+
 
     }
 
@@ -243,10 +293,11 @@ public class PlayerBehavior : MonoBehaviour
         }
     }
 
-    private void GoombaPropel(float knockback)
+    private void GoombaPropel(Vector2 GoombaJump)
     {
-        var force = knockback;
-        rb.AddForce(Vector2.up * force, ForceMode2D.Impulse);
+        
+       isGoomba = true;
+        GoombaForce = GoombaJump;
         Debug.Log("Player should have been forced up");
     }
 
@@ -254,12 +305,13 @@ public class PlayerBehavior : MonoBehaviour
     {
         Debug.LogFormat("direction = {0}", direction);
 
-        rb.AddForce(direction, ForceMode2D.Impulse);
+        AttackForce = direction;
+
     }
 
    private void AirControls()
     {
-        rb.velocity = new Vector2(rb.velocity.x, jumpforce);
+       
 
         
     }
