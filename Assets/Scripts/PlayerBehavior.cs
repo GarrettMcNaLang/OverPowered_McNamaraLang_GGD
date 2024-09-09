@@ -5,56 +5,70 @@ using UnityEngine;
 
 public class PlayerBehavior : MonoBehaviour
 {
+    #region scriptReferences
     private GameManager _gameManager;
 
     JumpOnEnemy _jumpOnEnemy;
     AttackKiller _attackKiller;
+    #endregion
 
+    #region MovementVariables
     //floats for holding movement speed values
     [SerializeField]
-    private float hSpeed = 0f;
+    private float hSpeed;
 
     //amount of force for a jump
     [SerializeField]
-    private float jumpforce = 0f;
+    private float jumpforce;
     
     [SerializeField]
-    private float gravity = 2f;
-
-    //the layer of objects that will let the game know if the play can jump
-    public LayerMask GroundMask;
-
-    //collider for the player to detect events with enemies
-    Collider2D PlayerCollider;
-   
-    //the rigidbody for the player character
-    private Rigidbody2D rb;
+    private float gravity;
 
     //the axis that will hold the values for horizontal movement (left and right)
     private float hAxis;
 
-    //distance between player collider to the Floor layer
-    public float DistanceToFloor = 0.1f;
+    [SerializeField]
+    private float maxJumpHeight;
+    #endregion
 
-    //this will represent the size of the vector2 of the player 
-    //character's position
-    public Vector2 BoxSize;
+
+    #region CharacterQualities
+
+    //collider for the player to detect events with enemies
+    Collider2D PlayerCollider;
+
+    //the rigidbody for the player character
+    private Rigidbody2D rb;
+
+    #endregion
+
+    #region JumpingItems
+
+    //the layer of objects that will let the game know if the play can jump
+    public LayerMask GroundMask;
 
     //bool for checking if player is jumping
     private bool isJumping;
 
+    //distance between player collider to the Floor layer
+    public float DistanceToFloor = 0.1f;
+
+    //this will represent the size of the vector2 that will determine if a player can jump
+    public Vector2 BoxSize;
+
+    #endregion
+
+    #region AttackingMouse1
+
     private bool isAttacking;
 
     public GameObject attackfield;
-
-    
-    //function for attacking enemies
+    #endregion
 
     // Start is called before the first frame update
     void Start()
     {
-        //input axis' for movement
-        
+        #region CharacterRefs
         //Reference to 2D rigidbody
         rb = GetComponent<Rigidbody2D>();
 
@@ -62,11 +76,20 @@ public class PlayerBehavior : MonoBehaviour
 
         PlayerCollider = GetComponent<Collider2D>();
 
+        #endregion
+
+        #region ScriptReferences
+
         _gameManager = GameObject.Find("GM").GetComponent<GameManager>();
 
         _jumpOnEnemy = GameObject.Find("JumpKiller").GetComponent<JumpOnEnemy>();
 
         _attackKiller = attackfield.GetComponent<AttackKiller>();
+
+        #endregion
+
+
+        #region Event Subs
 
         _jumpOnEnemy.jumpEvent += GoombaPropel;
 
@@ -74,12 +97,16 @@ public class PlayerBehavior : MonoBehaviour
 
         _attackKiller.attackEvent += HammerDown;
 
+        #endregion
+
+        #region AttackSettings
         attackfield.SetActive(false);
-        
+        #endregion
     }
 
     void Update()
     {
+        #region CheckingForInputs
         //checks every frame for horizontal input (A,D or left arrow, right arrow)
         hAxis = Input.GetAxisRaw("Horizontal");
         //takes the axis for jumping, holding a bool for if the player is
@@ -89,7 +116,8 @@ public class PlayerBehavior : MonoBehaviour
         //checks if player is pressing the left mouse button
 
         isAttacking |= Input.GetMouseButtonDown(0);
-        
+        #endregion
+
     }
     //the FixedUpdate function is best for rigidbody
     //based movements
@@ -97,13 +125,11 @@ public class PlayerBehavior : MonoBehaviour
     {
         if(isAttacking)
         {
-            attackfield.SetActive(true);
+            
+            
 
             
         }
-        else
-        attackfield.SetActive(false);
-        
         isAttacking = false;
        
         //new info: create a raycast if the player is on the floor.
@@ -142,7 +168,7 @@ public class PlayerBehavior : MonoBehaviour
 
         if (isJumping && isOnFloor())
         {
-            rb.AddForce(Vector2.up * jumpforce * Time.deltaTime, ForceMode2D.Force);
+            rb.AddForce(Vector2.up * jumpforce, ForceMode2D.Impulse);
             
             //Insert here A & D keys being used to addforce and horizontal movement
             //in air
@@ -207,6 +233,20 @@ public class PlayerBehavior : MonoBehaviour
         var force = direction * knockback * Time.deltaTime;
         Debug.LogFormat("Force vector, {0}", force);
         rb.AddForce(force, ForceMode2D.Impulse);
+    }
+
+    private void AttackMode()
+    {
+        var cooldown = 3f;
+
+        while (cooldown > 0)
+        {
+            attackfield.SetActive(true);
+
+            cooldown -= 1;
+        }
+        attackfield.SetActive(false);
+        
     }
     
 }
