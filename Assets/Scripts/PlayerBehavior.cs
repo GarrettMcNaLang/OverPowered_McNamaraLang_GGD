@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using Unity.VisualScripting;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class PlayerBehavior : MonoBehaviour
@@ -14,6 +15,9 @@ public class PlayerBehavior : MonoBehaviour
     public float AttackTimer;
 
     public float GoombaTimer;
+
+    
+    
 
     #endregion
 
@@ -32,18 +36,16 @@ public class PlayerBehavior : MonoBehaviour
     //amount of force for a jump
     [SerializeField]
     private float jumpforce;
-    
-    [SerializeField]
-    private float gravity;
+ 
 
     //the axis that will hold the values for horizontal movement (left and right)
     private float hAxis;
 
-    private float vAxis;
+    public float vAxis;
 
+    public float fallSpeed;
     
     
-
     #endregion
 
 
@@ -65,12 +67,14 @@ public class PlayerBehavior : MonoBehaviour
     //bool for checking if player is jumping
     private bool isJumping;
 
+
     //distance between player collider to the Floor layer
     public float DistanceToFloor = 0.1f;
 
     //this will represent the size of the vector2 that will determine if a player can jump
     public Vector2 BoxSize;
 
+    private bool inAir;
     #endregion
 
     #region AttackingMouse1
@@ -128,6 +132,10 @@ public class PlayerBehavior : MonoBehaviour
         #region AttackSettings
         attackfield.SetActive(false);
         #endregion
+
+       
+
+        
     }
 
     void Update()
@@ -140,6 +148,8 @@ public class PlayerBehavior : MonoBehaviour
         //takes the axis for jumping, holding a bool for if the player is
         //pressing the space bar.
         isJumping |= Input.GetButtonDown("Jump");
+
+       
 
         //checks if player is pressing the left mouse button
 
@@ -174,11 +184,15 @@ public class PlayerBehavior : MonoBehaviour
 
             if(timer >= GoombaTimer)
             {
+                
                 timer = 0;
+                
                 isGoomba = false;
             }
         }
 
+        
+        
     }
     //the FixedUpdate function is best for rigidbody
     //based movements
@@ -205,8 +219,9 @@ public class PlayerBehavior : MonoBehaviour
 
         if (isOnFloor())
         {
+            
             rb.velocity = new Vector2(hAxis * hSpeed, rb.velocity.y);
-
+            
             
         }
         
@@ -222,15 +237,17 @@ public class PlayerBehavior : MonoBehaviour
 
         if (isJumping && isOnFloor())
         {
+            
             rb.velocity = new Vector2(rb.velocity.x, jumpforce);
-
+            
             //Insert here A & D keys being used to addforce and horizontal movement
             //in air
 
-
-
         }
         isJumping = false;
+
+        
+        
 
         if (attacking)
         {
@@ -309,11 +326,6 @@ public class PlayerBehavior : MonoBehaviour
 
     }
 
-   private void AirControls()
-    {
-       
-
-        
-    }
+   
     
 }

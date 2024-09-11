@@ -702,7 +702,8 @@ MonoBehaviour:
   GoombaTimer: 0.25
   hSpeed: 7
   jumpforce: 6
-  gravity: 1
+  vAxis: 0
+  fallSpeed: 0
   GroundMask:
     serializedVersion: 2
     m_Bits: 8
