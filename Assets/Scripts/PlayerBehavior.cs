@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
@@ -33,17 +34,14 @@ public class PlayerBehavior : MonoBehaviour
     [SerializeField]
     private float hSpeed;
 
-    //amount of force for a jump
-    [SerializeField]
-    private float jumpforce;
- 
+    
 
     //the axis that will hold the values for horizontal movement (left and right)
     private float hAxis;
 
     public float vAxis;
 
-    public float fallSpeed;
+
     
     
     #endregion
@@ -61,12 +59,17 @@ public class PlayerBehavior : MonoBehaviour
 
     #region JumpingItems
 
+    //amount of force for a jump
+    [SerializeField]
+    private float jumpforce;
+
     //the layer of objects that will let the game know if the play can jump
     public LayerMask GroundMask;
 
     //bool for checking if player is jumping
     private bool isJumping;
 
+    private bool IsHoldingJumping;
 
     //distance between player collider to the Floor layer
     public float DistanceToFloor = 0.1f;
@@ -74,7 +77,19 @@ public class PlayerBehavior : MonoBehaviour
     //this will represent the size of the vector2 that will determine if a player can jump
     public Vector2 BoxSize;
 
-    private bool inAir;
+    [SerializeField]
+    float fallSpeed;
+
+    Vector2 gravVector;
+
+    public float jumpMultiplier;
+
+    public float jumpTime;
+
+    private bool isFalling;
+
+    public float airMoveForce;
+
     #endregion
 
     #region AttackingMouse1
@@ -133,7 +148,7 @@ public class PlayerBehavior : MonoBehaviour
         attackfield.SetActive(false);
         #endregion
 
-       
+       gravVector = new Vector2(0, -Physics2D.gravity.y);
 
         
     }
@@ -149,7 +164,8 @@ public class PlayerBehavior : MonoBehaviour
         //pressing the space bar.
         isJumping |= Input.GetButtonDown("Jump");
 
-       
+        IsHoldingJumping |= Input.GetButton("Jump");
+
 
         //checks if player is pressing the left mouse button
 
@@ -224,8 +240,9 @@ public class PlayerBehavior : MonoBehaviour
             
             
         }
-        
-        
+
+        if (rb.velocity.y < 0)
+            isFalling = true;
 
 
         //if the isonFloor method returns true and the
@@ -238,16 +255,30 @@ public class PlayerBehavior : MonoBehaviour
         if (isJumping && isOnFloor())
         {
             
-            rb.velocity = new Vector2(rb.velocity.x, jumpforce);
             
-            //Insert here A & D keys being used to addforce and horizontal movement
-            //in air
+            rb.velocity = new Vector2(rb.velocity.x, jumpforce);
+
+            
 
         }
         isJumping = false;
 
         
+
+        if (isFalling)
+        {
+            if (vAxis < 0)
+            {
+                rb.velocity -= fallSpeed * Time.deltaTime * gravVector;
+            }
+
+            if (hAxis < 0 || hAxis > 0)
+            rb.AddForce(new Vector2(hAxis * airMoveForce, 0), ForceMode2D.Impulse);
+
+
+        }
         
+
 
         if (attacking)
         {
