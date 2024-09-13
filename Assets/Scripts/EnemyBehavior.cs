@@ -6,7 +6,28 @@ using UnityEngine.UIElements;
 
 public class EnemyBehavior : MonoBehaviour
 {
-   
+
+
+    private float _EnemyLives = 1;
+
+    public float EnemyLives
+    {
+        get { return _EnemyLives; }
+
+        set
+        {
+            _EnemyLives = value;
+
+            if (_EnemyLives <= 0)
+            {
+                Debug.LogFormat("Enemy has died. Lives: {0}", _EnemyLives);
+                Destroy(gameObject);
+
+            }
+        }
+
+    }
+
     //idea for moving back an forth
     //a coroutine that can be set to a specific amount of time before the player turns the other direction
 

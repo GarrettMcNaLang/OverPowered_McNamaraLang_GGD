@@ -21,23 +21,6 @@ public class GameManager: MonoBehaviour
 
     
 
-    private float _EnemyLives = 1;
-
-    public float EnemyLives
-    {
-        get { return _EnemyLives; }
-
-        set
-        {
-            _EnemyLives = value;
-
-            if (_EnemyLives <= 0)
-            {
-                Debug.LogFormat("Enemy has died. Lives: {0}", _EnemyLives);
-            }
-        }
-
-    }
 
     //the following lines are the values that will be
     private int _PlayerHP = 2;
@@ -55,15 +38,12 @@ public class GameManager: MonoBehaviour
             if (_PlayerHP <= 0)
             {
                 Debug.LogFormat("Player has Died. Lives {0}", PlayerHP);
+                Destroy(GameObject.Find("Player"));
             }
         }
     }
 
-    private void Unsubscribe()
-    {
-
-    }
-
+   
 
     // Start is called before the first frame update
     void Start()

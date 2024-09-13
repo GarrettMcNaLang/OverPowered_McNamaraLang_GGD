@@ -273,7 +273,7 @@ public class PlayerBehavior : MonoBehaviour
             }
 
             if (hAxis < 0 || hAxis > 0)
-            rb.AddForce(new Vector2(hAxis * airMoveForce, 0), ForceMode2D.Impulse);
+            rb.AddForce(new Vector2(hAxis * airMoveForce, 0), ForceMode2D.Force);
 
 
         }
