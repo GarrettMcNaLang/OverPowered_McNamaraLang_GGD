@@ -16,7 +16,7 @@ public class AttackKiller : MonoBehaviour
 
     //public float Direction;
    
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         var PlayerCollider = GetComponentInParent<Transform>();
 

@@ -45,6 +45,8 @@ public class EnemyBehavior : MonoBehaviour
     //which position is the enemy at between the two points
     private Transform CurrentPoint;
 
+    
+
 
 
     // Start is called before the first frame update
