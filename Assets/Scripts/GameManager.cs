@@ -11,7 +11,7 @@ public class GameManager: MonoBehaviour
 
     bool Escape;
 
-    
+    bool MoreThanLevel0;
 
     public static GameManager Instance;
 
@@ -40,13 +40,7 @@ public class GameManager: MonoBehaviour
 
         DontDestroyOnLoad(eventSystemObj);
 
-        if(UtilityScript.GetCurrScene() == 0)
-        {
-            MainMenuObj.SetActive(true);
-            ResetMenuObj.SetActive(false);
-            PauseMenuObj.SetActive(false);
-        }
-        
+       
 
     }
 
@@ -83,11 +77,15 @@ public class GameManager: MonoBehaviour
     public void ResetLevel()
     {
         UtilityScript.ChangeScene(UtilityScript.GetCurrScene());
+
+        Resume();
     }
 
     public void ReturnToMain()
     {
         UtilityScript.ChangeScene(0);
+
+        Resume();
         //End Subscriptions
         //unload active scene
     }
@@ -98,16 +96,29 @@ public class GameManager: MonoBehaviour
         UtilityScript.ExitGame();
     }
   
+    public void Resume()
+    {
+        PauseMenuObj.SetActive(false);
+
+        Time.timeScale = 1f;
+    }
 
     public void PauseMenu()
     {
+        Time.timeScale = 0f;
+
+        PauseMenuObj.SetActive(true);
+        
         
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        PauseMenuObj.SetActive(false);
+        ResetMenuObj.SetActive(false);
+
+       
     }
 
     // Update is called once per frame
@@ -117,12 +128,14 @@ public class GameManager: MonoBehaviour
 
        if( Escape )
         {
+            Debug.Log("User Has pressed pause menu button");
             PauseMenu();
+           
         }
 
-       if(UtilityScript.GetCurrScene() > 0)
-        {
+       if(UtilityScript.GetCurrScene() > 0) {
 
+            MainMenuObj.SetActive(false);
         }
 
     }

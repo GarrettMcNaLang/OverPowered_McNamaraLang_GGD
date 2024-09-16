@@ -356,7 +356,14 @@ public class PlayerBehavior : MonoBehaviour
         AttackForce = direction;
 
     }
+    ~PlayerBehavior()
+    {
+        _jumpOnEnemy.jumpEvent -= GoombaPropel;
 
+
+
+        _attackKiller.attackEvent -= HammerDown;
+    }
    
     
 }
