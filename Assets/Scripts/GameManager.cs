@@ -1,10 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 public class GameManager: MonoBehaviour  
 {
+
+    bool Escape;
+
+    
+
     public static GameManager Instance;
 
     void Awake()
@@ -43,7 +49,35 @@ public class GameManager: MonoBehaviour
         }
     }
 
-   
+   public void NextLevel()
+    {
+        UtilityScript.ChangeScene(UtilityScript.GetCurrScene() + 1);
+        
+    }
+
+    public void ResetLevel()
+    {
+        UtilityScript.ChangeScene(UtilityScript.GetCurrScene());
+    }
+
+    public void ReturnToMain()
+    {
+        UtilityScript.ChangeScene(0);
+        //End Subscriptions
+        //unload active scene
+    }
+
+    public void ExitGame()
+    {
+        Debug.Log("Exiting Level");
+        UtilityScript.ExitGame();
+    }
+  
+
+    public void PauseMenu()
+    {
+        
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -54,6 +88,12 @@ public class GameManager: MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        Escape = Input.GetKeyDown(KeyCode.Escape);
+
+       if( Escape )
+        {
+            PauseMenu();
+        }
+
     }
 }

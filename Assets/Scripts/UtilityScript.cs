@@ -1,18 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class UtilityScript : MonoBehaviour
+public static class UtilityScript
 {
-    // Start is called before the first frame update
-    void Start()
+
+    public static int GetCurrScene()
+    {
+        var currScene = SceneManager.GetActiveScene().buildIndex;
+
+        return currScene;
+    }
+   
+
+    public static void ChangeScene(int LevelInput)
     {
         
+        SceneManager.LoadSceneAsync(LevelInput);
+        
+
     }
 
-    // Update is called once per frame
-    void Update()
+
+    public static void ExitGame()
     {
-        
+        Application.Quit();
     }
+
 }
