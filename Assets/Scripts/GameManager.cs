@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 
@@ -13,6 +15,16 @@ public class GameManager: MonoBehaviour
 
     public static GameManager Instance;
 
+    public GameObject PauseMenuObj;
+
+    public GameObject ResetMenuObj;
+
+    public GameObject MainMenuObj;
+
+    public Canvas canvasObj;
+
+    public EventSystem eventSystemObj;
+
     void Awake()
     {
         if (Instance)
@@ -23,6 +35,19 @@ public class GameManager: MonoBehaviour
         Instance = this;
 
         DontDestroyOnLoad(gameObject);
+
+        DontDestroyOnLoad(canvasObj);
+
+        DontDestroyOnLoad(eventSystemObj);
+
+        if(UtilityScript.GetCurrScene() == 0)
+        {
+            MainMenuObj.SetActive(true);
+            ResetMenuObj.SetActive(false);
+            PauseMenuObj.SetActive(false);
+        }
+        
+
     }
 
     
@@ -93,6 +118,11 @@ public class GameManager: MonoBehaviour
        if( Escape )
         {
             PauseMenu();
+        }
+
+       if(UtilityScript.GetCurrScene() > 0)
+        {
+
         }
 
     }
