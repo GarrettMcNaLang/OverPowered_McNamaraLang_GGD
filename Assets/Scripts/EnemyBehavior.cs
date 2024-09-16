@@ -22,6 +22,7 @@ public class EnemyBehavior : MonoBehaviour
             {
                 Debug.LogFormat("Enemy has died. Lives: {0}", _EnemyLives);
                 Destroy(gameObject);
+                GameManager.Instance.EnemiesInScene -= 1;
 
             }
         }
@@ -45,8 +46,11 @@ public class EnemyBehavior : MonoBehaviour
     //which position is the enemy at between the two points
     private Transform CurrentPoint;
 
-    
 
+    void Awake()
+    {
+        GameManager.Instance.EnemiesInScene += 1;
+    }
 
 
     // Start is called before the first frame update

@@ -6,12 +6,14 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 
-public class GameManager: MonoBehaviour  
+public class GameManager : MonoBehaviour
 {
 
     bool Escape;
 
-    bool MoreThanLevel0;
+    private GameObject PlayerSpawn;
+
+    private GameObject playerPrefab;
 
     public static GameManager Instance;
 
@@ -40,12 +42,25 @@ public class GameManager: MonoBehaviour
 
         DontDestroyOnLoad(eventSystemObj);
 
-       
+
 
     }
 
-    
 
+    private int _EnemiesInScene;
+
+    public int EnemiesInScene
+    {
+        get { return _EnemiesInScene; }
+
+        set { _EnemiesInScene = value;
+
+            if (_EnemiesInScene <= 0)
+            {
+                ResetMenuObj.SetActive(true);
+            }
+        }
+    }
 
     //the following lines are the values that will be
     private int _PlayerHP = 2;
@@ -62,16 +77,23 @@ public class GameManager: MonoBehaviour
 
             if (_PlayerHP <= 0)
             {
+
                 Debug.LogFormat("Player has Died. Lives {0}", PlayerHP);
                 Destroy(GameObject.Find("Player"));
+                Time.timeScale = 0f;
+                ResetMenuObj.SetActive(true);
             }
         }
     }
 
-   public void NextLevel()
+    public void NextLevel()
     {
+        UtilityScript.UnloadScene(UtilityScript.GetCurrScene());
+
         UtilityScript.ChangeScene(UtilityScript.GetCurrScene() + 1);
-        
+
+
+
     }
 
     public void ResetLevel()
@@ -83,6 +105,8 @@ public class GameManager: MonoBehaviour
 
     public void ReturnToMain()
     {
+        UtilityScript.UnloadScene(UtilityScript.GetCurrScene());
+
         UtilityScript.ChangeScene(0);
 
         Resume();
@@ -95,7 +119,7 @@ public class GameManager: MonoBehaviour
         Debug.Log("Exiting Level");
         UtilityScript.ExitGame();
     }
-  
+
     public void Resume()
     {
         PauseMenuObj.SetActive(false);
@@ -108,9 +132,11 @@ public class GameManager: MonoBehaviour
         Time.timeScale = 0f;
 
         PauseMenuObj.SetActive(true);
-        
-        
+
+
     }
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -118,7 +144,12 @@ public class GameManager: MonoBehaviour
         PauseMenuObj.SetActive(false);
         ResetMenuObj.SetActive(false);
 
-       
+
+    }
+
+    private void PlayerSpawner()
+    {
+        
     }
 
     // Update is called once per frame

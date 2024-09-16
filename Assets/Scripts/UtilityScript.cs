@@ -28,6 +28,9 @@ public static class UtilityScript
         Application.Quit();
     }
 
-    
+    public static void UnloadScene(int currSceneIndex)
+    {
+        SceneManager.UnloadSceneAsync(currSceneIndex);
+    }
 
 }
