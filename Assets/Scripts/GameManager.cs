@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -12,8 +13,9 @@ public class GameManager : MonoBehaviour
     bool Escape;
 
     private GameObject PlayerSpawn;
+      
 
-    private GameObject playerPrefab;
+    public GameObject playerPrefab;
 
     public static GameManager Instance;
 
@@ -22,6 +24,8 @@ public class GameManager : MonoBehaviour
     public GameObject ResetMenuObj;
 
     public GameObject MainMenuObj;
+
+    public GameObject LevelCmpltObj;
 
     public Canvas canvasObj;
 
@@ -42,8 +46,8 @@ public class GameManager : MonoBehaviour
 
         DontDestroyOnLoad(eventSystemObj);
 
-
-
+        SceneManager.sceneLoaded += OnLoaded;
+        
     }
 
 
@@ -92,7 +96,7 @@ public class GameManager : MonoBehaviour
 
         UtilityScript.ChangeScene(UtilityScript.GetCurrScene() + 1);
 
-
+        Resume();
 
     }
 
@@ -110,6 +114,8 @@ public class GameManager : MonoBehaviour
         UtilityScript.ChangeScene(0);
 
         Resume();
+
+        
         //End Subscriptions
         //unload active scene
     }
@@ -123,6 +129,8 @@ public class GameManager : MonoBehaviour
     public void Resume()
     {
         PauseMenuObj.SetActive(false);
+        ResetMenuObj.SetActive(false);
+        LevelCmpltObj.SetActive(false);
 
         Time.timeScale = 1f;
     }
@@ -143,15 +151,36 @@ public class GameManager : MonoBehaviour
     {
         PauseMenuObj.SetActive(false);
         ResetMenuObj.SetActive(false);
+        LevelCmpltObj.SetActive(false);
 
 
     }
 
-    private void PlayerSpawner()
+    void OnLoaded(UnityEngine.SceneManagement.Scene scene, LoadSceneMode loadMode)
     {
-        
+        OnLoadLevel();
     }
 
+    void OnLoadLevel()
+    {
+        if (UtilityScript.GetCurrScene() > 0)
+        {
+            PlayerSpawn = GameObject.Find("SpawnPoint");
+
+
+            
+     
+
+            Instantiate(playerPrefab, PlayerSpawn.transform.position, Quaternion.identity);
+        }
+    }
+
+    public void LevelComplete()
+    {
+        Time.timeScale = 0f;
+        ResetMenuObj.SetActive(false);
+        LevelCmpltObj.SetActive(true);
+    }
     // Update is called once per frame
     void Update()
     {

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2294553778295130258}
   - component: {fileID: 517946995199483243}
   - component: {fileID: 7281065700396352966}
+  - component: {fileID: 7916948662044122501}
   m_Layer: 0
   m_Name: PitBox 1
   m_TagString: Untagged
@@ -130,3 +131,15 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &7916948662044122501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4000652789392341432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9b703c1ef32a164e9d18352bdd1d744, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -30,6 +30,7 @@ public static class UtilityScript
 
     public static void UnloadScene(int currSceneIndex)
     {
+        if(currSceneIndex != 0)
         SceneManager.UnloadSceneAsync(currSceneIndex);
     }
 
