@@ -53,17 +53,23 @@ public static class UtilityScript
     {
         yield return null;
 
-        AsyncOperation asyncOp = SceneManager.UnloadSceneAsync(currSceneIndex);
+        if(currSceneIndex != 0)
+        {
+            AsyncOperation asyncOp = SceneManager.UnloadSceneAsync(currSceneIndex);
 
-        asyncOp.allowSceneActivation = false;
+            asyncOp.allowSceneActivation = false;
 
-        while (!asyncOp.isDone) {
-            
-            Debug.Log(asyncOp.progress * 100);
+            while (!asyncOp.isDone)
+            {
+
+                Debug.Log(asyncOp.progress * 100);
+            }
+
+
+            asyncOp.allowSceneActivation = true;
+
         }
 
-        
-        asyncOp.allowSceneActivation = true;
 
 
     }
