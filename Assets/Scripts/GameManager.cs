@@ -54,11 +54,13 @@ public class GameManager : MonoBehaviour
 
         DontDestroyOnLoad(eventSystemObj);
 
-        DontDestroyOnLoad(coroutineManager);
+        //DontDestroyOnLoad(coroutineManager);
 
         SceneManager.sceneLoaded += OnLoaded;
 
-        UtilityScript.AccessMono();
+
+        NextLevel();
+        //UtilityScript.AccessMono();
         
     }
 
@@ -107,6 +109,7 @@ public class GameManager : MonoBehaviour
 
     public void NextLevel()
     {
+        
         UtilityScript.UnloadScene(UtilityScript.GetCurrScene());
 
         UtilityScript.ChangeScene(UtilityScript.GetCurrScene() + 1);
@@ -131,7 +134,7 @@ public class GameManager : MonoBehaviour
         
         UtilityScript.UnloadScene(UtilityScript.GetCurrScene());
 
-        UtilityScript.ChangeScene(0);
+        UtilityScript.ChangeScene(1);
 
         Resume(true);
 
@@ -155,6 +158,8 @@ public class GameManager : MonoBehaviour
         {
             
             ResetMenuObj.SetActive(false);
+            GameCompleteObj.SetActive(false);
+          
         }
         else
         {
@@ -197,7 +202,7 @@ public class GameManager : MonoBehaviour
 
     void OnLoadLevel()
     {
-        if (UtilityScript.GetCurrScene() > 0)
+        if (UtilityScript.GetCurrScene() > 1)
         {
             PlayerSpawn = GameObject.Find("SpawnPoint");
 
@@ -247,10 +252,14 @@ public class GameManager : MonoBehaviour
            
         }
 
-       if(UtilityScript.GetCurrScene() > 0) {
+       if(UtilityScript.GetCurrScene() > 1) {
 
             MainMenuObj.SetActive(false);
             
+        }
+       else
+        {
+            MainMenuObj.SetActive(true);
         }
 
     }
