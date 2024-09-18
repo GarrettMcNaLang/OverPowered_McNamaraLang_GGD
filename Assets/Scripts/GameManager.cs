@@ -202,7 +202,8 @@ public class GameManager : MonoBehaviour
             PlayerSpawn = GameObject.Find("SpawnPoint");
 
 
-            
+            //if(FindAnyObjectByType<PlayerBehavior>() != null)
+                
      
 
             Instantiate(playerPrefab, PlayerSpawn.transform.position, Quaternion.identity);

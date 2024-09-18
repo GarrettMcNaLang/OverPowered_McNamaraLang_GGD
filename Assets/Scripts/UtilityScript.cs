@@ -12,6 +12,9 @@ public static class UtilityScript
     {
         
             instance = GameObject.Find("MonoReference").AddComponent<CoroutineManager>();
+
+        if (instance == null)
+            Debug.Log("MonoBehavior instance empty");
         
     }
 
@@ -52,6 +55,13 @@ public static class UtilityScript
 
         AsyncOperation asyncOp = SceneManager.UnloadSceneAsync(currSceneIndex);
 
+        asyncOp.allowSceneActivation = false;
+
+        while (!asyncOp.isDone) {
+            
+            Debug.Log(asyncOp.progress * 100);
+        }
+
         
         asyncOp.allowSceneActivation = true;
 
@@ -63,6 +73,14 @@ public static class UtilityScript
         yield return null;
 
         AsyncOperation asyncOp = SceneManager.LoadSceneAsync(currSceneIndex);
+
+        asyncOp.allowSceneActivation = false;
+
+        while (!asyncOp.isDone)
+        {
+
+            Debug.Log(asyncOp.progress * 100);
+        }
 
         asyncOp.allowSceneActivation = true;
     }

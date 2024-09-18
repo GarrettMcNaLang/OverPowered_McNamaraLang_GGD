@@ -15,7 +15,7 @@ public class LevelCompleteScript : MonoBehaviour
     {
         if(collision.gameObject.tag == "Player")
         {
-            DestroyImmediate(collision.gameObject);
+            Destroy(collision.gameObject);
             GMObj.LevelComplete();
         }
 
