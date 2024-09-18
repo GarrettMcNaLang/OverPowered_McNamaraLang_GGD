@@ -214,7 +214,7 @@ public class PlayerBehavior : MonoBehaviour
     //based movements
     void FixedUpdate()
     {
-       
+
 
         //new info: create a raycast if the player is on the floor.
 
@@ -233,7 +233,7 @@ public class PlayerBehavior : MonoBehaviour
 
         //however
 
-        if (isOnFloor())
+        if (IsOnFloor(false))
         {
             
             rb.velocity = new Vector2(hAxis * hSpeed, rb.velocity.y);
@@ -252,7 +252,7 @@ public class PlayerBehavior : MonoBehaviour
         //Debug.Log("Is the player touching the floor" + isOnFloor());
         //Debug.Log("Did the player press the space key" + isJumping);
 
-        if (isJumping && isOnFloor())
+        if (isJumping && IsOnFloor(false))
         {
             
             
@@ -282,6 +282,7 @@ public class PlayerBehavior : MonoBehaviour
 
         if (attacking)
         {
+            IsOnFloor(true);
             rb.AddForce(AttackForce, ForceMode2D.Impulse);
             //AttackForce = Vector2.zero;
         }
@@ -306,7 +307,7 @@ public class PlayerBehavior : MonoBehaviour
     //to transition between moving on the ground (which is constant due to movement
     //being controlled by the velocity property), and moving through addforce,
     //in order to create variable movement when interacting with enemies
-    public bool isOnFloor()
+    public bool IsOnFloor(bool attacking)
     {
         //parameters in order:
         //transform component of attached object
@@ -316,9 +317,14 @@ public class PlayerBehavior : MonoBehaviour
         //the maximum distance the box should be casted
         //the colliders on this layermask needs to be checked for
         if(Physics2D.BoxCast(transform.position, BoxSize, 0, 
-            -transform.up, DistanceToFloor, GroundMask))
+            -transform.up, DistanceToFloor, GroundMask) && attacking == false)
         {
+            
             return true;
+        }
+        else if(attacking == true)
+        {
+            return false;
         }
         else
         {

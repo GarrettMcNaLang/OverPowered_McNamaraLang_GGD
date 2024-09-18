@@ -132,7 +132,7 @@ MonoBehaviour:
   GoombaTimer: 0.25
   hSpeed: 7
   vAxis: 0
-  jumpforce: 6
+  jumpforce: 7
   GroundMask:
     serializedVersion: 2
     m_Bits: 8
@@ -219,7 +219,7 @@ Transform:
   m_GameObject: {fileID: 7198070627479853251}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: 0.0066, z: 0}
+  m_LocalPosition: {x: -0, y: 0.017, z: 0}
   m_LocalScale: {x: 1.5, y: 0.94665635, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -289,8 +289,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3de9c494dd010dc4d9ce8fed19a13871, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AttackForce: 3
-  knockBackHeight: 3
+  AttackForce: 5
+  knockBackHeight: 7
   dirVector: {x: 0, y: 0}
 --- !u!50 &2144275236886270681
 Rigidbody2D:

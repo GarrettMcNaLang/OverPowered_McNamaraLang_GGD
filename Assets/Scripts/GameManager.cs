@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -27,10 +28,17 @@ public class GameManager : MonoBehaviour
 
     public GameObject LevelCmpltObj;
 
+    public GameObject GameCompleteObj;
+
+    public GameObject DeathScreenObj;
+
     public Canvas canvasObj;
 
     public EventSystem eventSystemObj;
 
+    public TextMeshProUGUI playerLivesDisplay;
+
+    public CoroutineManager coroutineManager;
     void Awake()
     {
         if (Instance)
@@ -46,7 +54,11 @@ public class GameManager : MonoBehaviour
 
         DontDestroyOnLoad(eventSystemObj);
 
+        DontDestroyOnLoad(coroutineManager);
+
         SceneManager.sceneLoaded += OnLoaded;
+
+        UtilityScript.AccessMono();
         
     }
 
@@ -79,13 +91,16 @@ public class GameManager : MonoBehaviour
         {
             _PlayerHP = value;
 
+            playerLivesDisplay.text = "Lives: " + PlayerHP;
+
             if (_PlayerHP <= 0)
             {
 
                 Debug.LogFormat("Player has Died. Lives {0}", PlayerHP);
                 Destroy(GameObject.Find("Player"));
                 Time.timeScale = 0f;
-                ResetMenuObj.SetActive(true);
+                ResetMenuObj.SetActive(false);
+                DeathScreenObj.SetActive(true);
             }
         }
     }
@@ -96,7 +111,9 @@ public class GameManager : MonoBehaviour
 
         UtilityScript.ChangeScene(UtilityScript.GetCurrScene() + 1);
 
-        Resume();
+        ResetHealth();
+
+        Resume(false);
 
     }
 
@@ -104,16 +121,19 @@ public class GameManager : MonoBehaviour
     {
         UtilityScript.ChangeScene(UtilityScript.GetCurrScene());
 
-        Resume();
+        ResetHealth();
+
+        Resume(false);
     }
 
     public void ReturnToMain()
     {
+        
         UtilityScript.UnloadScene(UtilityScript.GetCurrScene());
 
         UtilityScript.ChangeScene(0);
 
-        Resume();
+        Resume(true);
 
         
         //End Subscriptions
@@ -126,11 +146,22 @@ public class GameManager : MonoBehaviour
         UtilityScript.ExitGame();
     }
 
-    public void Resume()
+    public void Resume(bool toMain)
     {
         PauseMenuObj.SetActive(false);
-        ResetMenuObj.SetActive(false);
         LevelCmpltObj.SetActive(false);
+        DeathScreenObj.SetActive(false);
+        if (toMain)
+        {
+            
+            ResetMenuObj.SetActive(false);
+        }
+        else
+        {
+           
+            ResetMenuObj.SetActive(true);
+        }
+        
 
         Time.timeScale = 1f;
     }
@@ -139,6 +170,7 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 0f;
 
+        ResetMenuObj.SetActive(false);
         PauseMenuObj.SetActive(true);
 
 
@@ -152,8 +184,10 @@ public class GameManager : MonoBehaviour
         PauseMenuObj.SetActive(false);
         ResetMenuObj.SetActive(false);
         LevelCmpltObj.SetActive(false);
+        GameCompleteObj.SetActive(false);
+        DeathScreenObj.SetActive(false);
 
-
+        playerLivesDisplay.text += _PlayerHP;
     }
 
     void OnLoaded(UnityEngine.SceneManagement.Scene scene, LoadSceneMode loadMode)
@@ -186,7 +220,20 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 0f;
 
+        LevelCmpltObj.SetActive(false);
+
+        ResetMenuObj.SetActive(false);
+
+        GameCompleteObj.SetActive(true);
+
     }
+
+    private void ResetHealth()
+    {
+        PlayerHP = 2;
+    }
+
+  
     // Update is called once per frame
     void Update()
     {
@@ -202,6 +249,7 @@ public class GameManager : MonoBehaviour
        if(UtilityScript.GetCurrScene() > 0) {
 
             MainMenuObj.SetActive(false);
+            
         }
 
     }

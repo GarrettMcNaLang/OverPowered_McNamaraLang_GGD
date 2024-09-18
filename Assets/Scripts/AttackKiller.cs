@@ -38,6 +38,10 @@ public class AttackKiller : MonoBehaviour
             Debug.Log("Player has made contact with enemy" +
                 "Initiating attack event");
 
+            var _EBehaveScript = collision.gameObject.GetComponent<EnemyBehavior>();
+
+            _EBehaveScript.EnemyLives -= 1;
+
             attackEvent(dirVector);
             //if (dirVector < 0)
             //    attackEvent(5, -1);

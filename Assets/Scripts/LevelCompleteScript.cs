@@ -15,11 +15,13 @@ public class LevelCompleteScript : MonoBehaviour
     {
         if(collision.gameObject.tag == "Player")
         {
+            DestroyImmediate(collision.gameObject);
             GMObj.LevelComplete();
         }
 
         if (isFinalExit)
         {
+            DestroyImmediate(collision.gameObject);
             GMObj.VictoryScreen();
         }
     }
