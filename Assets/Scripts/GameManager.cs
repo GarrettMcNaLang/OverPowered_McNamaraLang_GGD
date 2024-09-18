@@ -181,6 +181,12 @@ public class GameManager : MonoBehaviour
         ResetMenuObj.SetActive(false);
         LevelCmpltObj.SetActive(true);
     }
+
+    public void VictoryScreen()
+    {
+        Time.timeScale = 0f;
+
+    }
     // Update is called once per frame
     void Update()
     {

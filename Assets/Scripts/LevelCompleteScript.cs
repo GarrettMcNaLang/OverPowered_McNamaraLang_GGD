@@ -5,6 +5,8 @@ using UnityEngine;
 public class LevelCompleteScript : MonoBehaviour
 {
     private GameManager GMObj;
+
+    public bool isFinalExit;
     void OnEnable()
     {
         GMObj = GameObject.Find("GM").GetComponent<GameManager>();
@@ -14,6 +16,11 @@ public class LevelCompleteScript : MonoBehaviour
         if(collision.gameObject.tag == "Player")
         {
             GMObj.LevelComplete();
+        }
+
+        if (isFinalExit)
+        {
+            GMObj.VictoryScreen();
         }
     }
 }

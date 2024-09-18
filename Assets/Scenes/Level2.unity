@@ -177,7 +177,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4717277626276313478, guid: 29ede36323c1d3d4bab268990aefd998, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -18.9
+      value: -18.99
       objectReference: {fileID: 0}
     - target: {fileID: 4717277626276313478, guid: 29ede36323c1d3d4bab268990aefd998, type: 3}
       propertyPath: m_LocalPosition.z
@@ -210,6 +210,10 @@ PrefabInstance:
     - target: {fileID: 4717277626276313478, guid: 29ede36323c1d3d4bab268990aefd998, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5992623873977933702, guid: 29ede36323c1d3d4bab268990aefd998, type: 3}
+      propertyPath: speed
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5992623873977933702, guid: 29ede36323c1d3d4bab268990aefd998, type: 3}
       propertyPath: LBound
@@ -753,11 +757,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7092044664523993926, guid: ffe02b189c3dab1449b293adb679f7f2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 26.019997
+      value: 27.26
       objectReference: {fileID: 0}
     - target: {fileID: 7092044664523993926, guid: ffe02b189c3dab1449b293adb679f7f2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -18.779999
+      value: -19.09
       objectReference: {fileID: 0}
     - target: {fileID: 7092044664523993926, guid: ffe02b189c3dab1449b293adb679f7f2, type: 3}
       propertyPath: m_LocalPosition.z
@@ -820,11 +824,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7092044664523993926, guid: ffe02b189c3dab1449b293adb679f7f2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 26
+      value: 19.42
       objectReference: {fileID: 0}
     - target: {fileID: 7092044664523993926, guid: ffe02b189c3dab1449b293adb679f7f2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -18.8
+      value: -19.08
       objectReference: {fileID: 0}
     - target: {fileID: 7092044664523993926, guid: ffe02b189c3dab1449b293adb679f7f2, type: 3}
       propertyPath: m_LocalPosition.z
