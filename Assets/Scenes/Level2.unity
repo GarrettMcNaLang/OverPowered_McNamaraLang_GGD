@@ -245,12 +245,24 @@ PrefabInstance:
       value: Enemy (1)
       objectReference: {fileID: 0}
     - target: {fileID: 4717277626276313478, guid: 29ede36323c1d3d4bab268990aefd998, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.4845964
+      objectReference: {fileID: 0}
+    - target: {fileID: 4717277626276313478, guid: 29ede36323c1d3d4bab268990aefd998, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.2847433
+      objectReference: {fileID: 0}
+    - target: {fileID: 4717277626276313478, guid: 29ede36323c1d3d4bab268990aefd998, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.5185411
+      objectReference: {fileID: 0}
+    - target: {fileID: 4717277626276313478, guid: 29ede36323c1d3d4bab268990aefd998, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 34.54
+      value: 32.8046
       objectReference: {fileID: 0}
     - target: {fileID: 4717277626276313478, guid: 29ede36323c1d3d4bab268990aefd998, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -19.08
+      value: -18.84
       objectReference: {fileID: 0}
     - target: {fileID: 4717277626276313478, guid: 29ede36323c1d3d4bab268990aefd998, type: 3}
       propertyPath: m_LocalPosition.z

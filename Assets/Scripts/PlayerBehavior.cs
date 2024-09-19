@@ -8,9 +8,10 @@ using UnityEngine;
 
 public class PlayerBehavior : MonoBehaviour
 {
+    //rules for the mechanics to follow
     #region Rules
 
-
+    //timers to compare and for how long an action lasts
     private float timer;
 
     public float AttackTimer;
@@ -38,7 +39,7 @@ public class PlayerBehavior : MonoBehaviour
 
     //the axis that will hold the values for horizontal movement (left and right)
     private float hAxis;
-
+    //uses the s key to fall faster
     public float vAxis;
 
 
@@ -68,8 +69,6 @@ public class PlayerBehavior : MonoBehaviour
 
     //bool for checking if player is jumping
     private bool isJumping;
-
-    private bool IsHoldingJumping;
 
     //distance between player collider to the Floor layer
     public float DistanceToFloor = 0.1f;
@@ -136,6 +135,7 @@ public class PlayerBehavior : MonoBehaviour
 
         #region Event Subs
 
+        //events that are subscribed to the jump on enemy and attack functions
         _jumpOnEnemy.jumpEvent += GoombaPropel;
 
         
@@ -144,6 +144,7 @@ public class PlayerBehavior : MonoBehaviour
 
         #endregion
 
+        //
         #region AttackSettings
         attackfield.SetActive(false);
         #endregion
@@ -164,7 +165,7 @@ public class PlayerBehavior : MonoBehaviour
         //pressing the space bar.
         isJumping |= Input.GetButtonDown("Jump");
 
-        IsHoldingJumping |= Input.GetButton("Jump");
+     
 
 
         //checks if player is pressing the left mouse button
