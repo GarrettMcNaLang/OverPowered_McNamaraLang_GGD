@@ -3797,8 +3797,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 410, y: -362.63312}
-  m_SizeDelta: {x: 587.8233, y: 87.2662}
+  m_AnchoredPosition: {x: -612, y: -531}
+  m_SizeDelta: {x: 602.3109, y: 90.1637}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1626359469
 MonoBehaviour:
@@ -3820,9 +3820,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Controls:  A and D to move left and right, \n\nSpace to jump, \n\nS to
-    fall faster\n\nA and D to move left and right in air\n\nAttack with left mouse
-    button"
+  m_text: 'Controls:  A and D to move left and right, Space to jump, S to fall faster,
+    A and D to move left and right in air, Attack with left mouse button'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5f913f1d207236849825a38758e3ba49, type: 2}
   m_sharedMaterial: {fileID: -2829519052650937592, guid: 5f913f1d207236849825a38758e3ba49, type: 2}
@@ -3885,7 +3884,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: -3.1834412, z: -958.8955, w: -122.80151}
+  m_margin: {x: 0, y: -72.72333, z: -1083.489, w: 1.7910309}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0

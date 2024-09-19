@@ -290,7 +290,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AttackForce: 5
-  knockBackHeight: 7
+  knockBackHeight: 6
   dirVector: {x: 0, y: 0}
 --- !u!50 &2144275236886270681
 Rigidbody2D:
